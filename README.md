@@ -1,14 +1,42 @@
-# Welcome to your CDK TypeScript project
+# s2026q2c-cdk-rsandoval
 
-This is a blank project for CDK development with TypeScript.
+# Taller AWS CDK (TypeScript)
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
+Este repositorio implementa infraestructura en AWS usando AWS CDK (Cloud Development Kit) con TypeScript.
 
-## Useful commands
+Incluye:
+- AWS Lambda
+- Amazon S3 Bucket
+- Despliegue automático de un archivo `hola.txt` con contenido "Hola Mundo"
 
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `npx cdk deploy`  deploy this stack to your default AWS account/region
-* `npx cdk diff`    compare deployed stack with current state
-* `npx cdk synth`   emits the synthesized CloudFormation template
+---
+
+# Objetivo
+
+Aprender a usar Infrastructure as Code (IaC) con AWS CDK para:
+
+- Crear infraestructura en AWS con TypeScript
+- Automatizar despliegues
+- Entender AWS CDK + CloudFormation
+- Desplegar Lambda y S3 desde código
+
+---
+
+# Arquitectura
+
+Se crean los siguientes recursos:
+
+- Lambda: función `HelloLambda`
+- S3 Bucket: `SemilleroBucket`
+- Deployment automático de archivos desde `assets/` hacia S3
+
+---
+
+# Estructura del proyecto
+
+```text
+bin/        -> entrypoint CDK
+lib/        -> stack principal
+lambda/     -> código Lambda (hello.ts)
+assets/     -> archivos estáticos (hola.txt)
+docs/       -> documentación (opcional)
