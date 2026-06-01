@@ -1,16 +1,33 @@
-import * as cdk from 'aws-cdk-lib/core';
+import * as cdk from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+
+import * as lambdaNodejs from 'aws-cdk-lib/aws-lambda-nodejs';
+import * as s3 from 'aws-cdk-lib/aws-s3';
+import * as s3deploy from 'aws-cdk-lib/aws-s3-deployment';
 
 export class S2026Q2CCdkRsandovalStack extends cdk.Stack {
+
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
-    // The code that defines your stack goes here
+    new lambdaNodejs.NodejsFunction(this, 'HelloLambda', {
+      functionName:"s2026q2c-cdk-rsandoval",
+      entry: 'lambda/hello.ts',
+      handler: 'handler'
+    });
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'S2026Q2CCdkRsandovalQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
+    const bucket = new s3.Bucket(this, 'SemilleroBucket', {
+      bucketName: "s2026q2c-cdk-rsandoval",
+      versioned: true,
+      removalPolicy: cdk.RemovalPolicy.DESTROY,
+      autoDeleteObjects: true
+    });
+
+    new s3deploy.BucketDeployment(this, 'DeployHolaMundo', {
+      destinationBucket: bucket,
+      sources: [
+        s3deploy.Source.asset('./assets')
+      ]
+    });
   }
 }
